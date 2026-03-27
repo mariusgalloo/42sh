@@ -5,34 +5,35 @@
 ** sigpart_three
 */
 
+#include <stdio.h>
 #include "mysh.h"
 
 void sigprof(void)
 {
-    my_dprintf(2, "Profiling time alarm\n");
+    (void)fprintf(stderr, "Profiling time alarm\n");
     return;
 }
 
 void sigpwr(void)
 {
-    my_dprintf(2, "Power failure\n");
+    (void)fprintf(stderr, "Power failure\n");
     return;
 }
 
 void sigquit(void)
 {
-    my_dprintf(2, "Quit\n");
+    (void)fprintf(stderr, "Quit\n");
     return;
 }
 
 void sigsegv(void)
 {
-    my_dprintf(2, "Segmentation fault\n");
+    (void)fprintf(stderr, "Segmentation fault\n");
     return;
 }
 
 void sigstkflt(void)
 {
-    my_dprintf(2, "Stack limit exceeded\n");
+    (void)fprintf(stderr, "Stack limit exceeded\n");
     return;
 }

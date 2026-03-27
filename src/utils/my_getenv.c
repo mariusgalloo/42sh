@@ -5,6 +5,7 @@
 ** my_getenv
 */
 
+#include <string.h>
 #include "mysh.h"
 
 char *my_getenv(char const *var, shell_t *sh)
@@ -12,10 +13,10 @@ char *my_getenv(char const *var, shell_t *sh)
     char *val = NULL;
     list_t *curr = sh->env;
 
-    while (curr && my_strcmp(var, curr->var) != 0)
+    while (curr && strcmp(var, curr->var) != 0)
         curr = curr->next;
     if (curr) {
-        val = my_strdup(curr->val);
+        val = strdup(curr->val);
         if (!val) {
             sh->error = true;
             return NULL;

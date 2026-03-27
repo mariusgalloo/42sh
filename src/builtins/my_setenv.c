@@ -5,6 +5,9 @@
 ** my_setenv
 */
 
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "mysh.h"
 
 size_t size_array(char **array)
@@ -20,7 +23,7 @@ int check_nb_of_args(char **array, shell_t *sh)
     size_t size = size_array(array);
 
     if (size > 3) {
-        my_dprintf(2, "setenv: Too many arguments.\n");
+        (void)fprintf(stderr, "setenv: Too many arguments.\n");
         return FAIL;
     }
     if (size == 1) {
@@ -46,11 +49,11 @@ int check_policy(char **array)
 {
     if (!(array[1][0] >= 'A' && array[1][0] <= 'Z')
         && !(array[1][0] >= 'a' && array[1][0] <= 'z')) {
-        my_dprintf(2,
+        (void)fprintf(stderr,
             "setenv: Variable name must begin with a letter.\n");
     }
     if (my_strisalpha(array[1]) == false) {
-        my_dprintf(2,
+        (void)fprintf(stderr,
             "setenv: Variable name must contain alphanumeric characters.\n");
         return FAIL;
     }
@@ -61,7 +64,7 @@ static void replace_env(char **array, char *val, shell_t *sh)
 {
     list_t *curr = sh->env;
 
-    while (curr && my_strcmp(array[1], curr->var) != 0)
+    while (curr && strcmp(array[1], curr->var) != 0)
         curr = curr->next;
     if (curr) {
         free(curr->val);
@@ -82,9 +85,9 @@ void my_setenv(char **array, shell_t *sh)
         || check_policy(array) == FAIL)
         return;
     if (array[2])
-        val = my_strdup(array[2]);
+        val = strdup(array[2]);
     else
-        val = my_strdup("");
+        val = strdup("");
     if (!val) {
         sh->error = true;
         return;

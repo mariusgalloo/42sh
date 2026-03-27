@@ -5,6 +5,8 @@
 ** push_back
 */
 
+#include <string.h>
+#include <unistd.h>
 #include "mysh.h"
 
 static list_t *init_node(char const *var, char const *val)
@@ -13,12 +15,12 @@ static list_t *init_node(char const *var, char const *val)
 
     if (!new_node)
         return NULL;
-    new_node->var = my_strdup(var);
+    new_node->var = strdup(var);
     if (!new_node->var) {
         free(new_node);
         return NULL;
     }
-    new_node->val = my_strdup(val);
+    new_node->val = strdup(val);
     if (!new_node->val) {
         free(new_node->var);
         free(new_node);

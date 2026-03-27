@@ -13,7 +13,7 @@ size_t how_many_array(char **array, char *delim)
     size_t len = 0;
 
     for (size_t i = 0; array[i] != NULL; ++i) {
-        if (my_strcmp(array[i], delim) == 0) {
+        if (strcmp(array[i], delim) == 0) {
             in_array = false;
             continue;
         }
@@ -45,7 +45,7 @@ static int array_in_array(char ***arrray, char **array, char *delim)
     size_t tab[3] = {0, 0, 0};
 
     for (size_t i = 0; array[i] != NULL; ++i) {
-        if (my_strcmp(array[i], delim) == 0)
+        if (strcmp(array[i], delim) == 0)
             separator = true;
         else
             separator = false;

@@ -6,16 +6,17 @@
 */
 
 #include <unistd.h>
+#include <stdio.h>
 #include "mysh.h"
 
 void my_env(char **array, shell_t *sh)
 {
     if (array[1]) {
         if (access(array[1], F_OK) == 0)
-            my_dprintf(2,
+            (void)fprintf(stderr,
                 "env: ‘%s’: Permission denied\n", array[1]);
         else
-            my_dprintf(2,
+            (void)fprintf(stderr,
                 "env: ‘%s’: No such file or directory\n", array[1]);
         return;
     }

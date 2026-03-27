@@ -5,6 +5,9 @@
 ** my_unsetenv
 */
 
+#include <stdlib.h>
+#include <string.h>
+#include <stdio.h>
 #include "mysh.h"
 
 static void free_node(list_t *node)
@@ -32,7 +35,7 @@ static void unset_env(char const *var, shell_t *sh)
     list_t *curr = sh->env;
     list_t *prev = NULL;
 
-    while (curr && my_strcmp(var, curr->var) != 0) {
+    while (curr && strcmp(var, curr->var) != 0) {
         prev = curr;
         curr = curr->next;
     }
@@ -46,7 +49,7 @@ static void unset_env(char const *var, shell_t *sh)
 void my_unsetenv(char **array, shell_t *sh)
 {
     if (!array[1]) {
-        my_dprintf(2, "unsetenv: Too few arguments.\n");
+        (void)fprintf(stderr, "unsetenv: Too few arguments.\n");
         return;
     }
     for (size_t i = 1; array[i] != NULL; ++i)

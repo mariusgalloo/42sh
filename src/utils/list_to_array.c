@@ -5,6 +5,8 @@
 ** list_to_array
 */
 
+#include <stdlib.h>
+#include <string.h>
 #include "mysh.h"
 
 size_t get_size_list(list_t *list)
@@ -29,7 +31,7 @@ static int fill_env_array(char **array, list_t *curr, size_t *i, shell_t *sh)
         sh->error = true;
         return FAIL;
     }
-    array[*i] = my_strdup(env_line);
+    array[*i] = strdup(env_line);
     if (!array[*i]) {
         free_narray(array, *i);
         free(env_line);

@@ -5,34 +5,35 @@
 ** sigpart_two
 */
 
+#include <stdio.h>
 #include "mysh.h"
 
 void sigill(void)
 {
-    my_dprintf(2, "Illegal instruction\n");
+    (void)fprintf(stderr, "Illegal instruction\n");
     return;
 }
 
 void sigio(void)
 {
-    my_dprintf(2, "I/O possible\n");
+    (void)fprintf(stderr, "I/O possible\n");
     return;
 }
 
 void sigiot(void)
 {
-    my_dprintf(2, "Aborted\n");
+    (void)fprintf(stderr, "Aborted\n");
     return;
 }
 
 void sigkill(void)
 {
-    my_dprintf(2, "Killed\n");
+    (void)fprintf(stderr, "Killed\n");
     return;
 }
 
 void sigpoll(void)
 {
-    my_dprintf(2, "Pollable event occurred\n");
+    (void)fprintf(stderr, "Pollable event occurred\n");
     return;
 }

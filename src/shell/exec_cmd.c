@@ -9,6 +9,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdio.h>
 #include "mysh.h"
 
 static void free_exec(cmd_t *exec)
@@ -23,7 +24,7 @@ static char **paths_from_env(shell_t *sh, bool *val_null)
     char **array = NULL;
     list_t *curr = sh->env;
 
-    while (curr && my_strcmp(curr->var, "PATH") != 0)
+    while (curr && strcmp(curr->var, "PATH") != 0)
         curr = curr->next;
     if (!curr)
         return NULL;
@@ -71,12 +72,12 @@ static char *search_path_list(char const *input, shell_t *sh,
 static char *check_access_cmd(char *cmd, shell_t *sh)
 {
     if (access(cmd, F_OK) != 0) {
-        my_dprintf(2, "%s: Command not found.\n", cmd);
+        (void)fprintf(stderr, "%s: Command not found.\n", cmd);
         sh->exit_status = ERROR;
         return NULL;
     }
     if (access(cmd, X_OK) != 0) {
-        my_dprintf(2, "%s: Permission denied.\n", cmd);
+        (void)fprintf(stderr, "%s: Permission denied.\n", cmd);
         sh->exit_status = ERROR;
         return NULL;
     }
@@ -90,8 +91,8 @@ static char *get_path(char const *input, shell_t *sh)
         "/usr/local/sbin", "/usr/local/bin",
         "/usr/sbin", "/usr/bin", "/sbin", "/bin", "/snap/bin", NULL};
 
-    if (my_strchr((char *)input, '/')) {
-        cmd = my_strdup(input);
+    if (strchr((char *)input, '/')) {
+        cmd = strdup(input);
         if (!cmd) {
             sh->error = true;
             return NULL;
@@ -100,7 +101,7 @@ static char *get_path(char const *input, shell_t *sh)
     }
     cmd = search_path_list(input, sh, stc_paths);
     if (!cmd) {
-        my_dprintf(2, "%s: Command not found.\n", input);
+        (void)fprintf(stderr, "%s: Command not found.\n", input);
         sh->exit_status = 1;
         return NULL;
     }
@@ -110,10 +111,10 @@ static char *get_path(char const *input, shell_t *sh)
 static void execute_cmd(cmd_t *exec)
 {
     if (execve(exec->cmd, exec->array, exec->env) == FAIL) {
-        my_dprintf(2, "%s: %s", exec->array[0], strerror(errno));
+        (void)fprintf(stderr, "%s: %s", exec->array[0], strerror(errno));
         if (errno == ENOEXEC)
-            my_dprintf(2, ". Binary file not executable");
-        my_dprintf(2, ".\n");
+            (void)fprintf(stderr, ". Binary file not executable");
+        (void)fprintf(stderr, ".\n");
         free_exec(exec);
         exit(ERROR);
     }

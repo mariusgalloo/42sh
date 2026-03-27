@@ -40,17 +40,7 @@ void free_tab(char ***tab);
 char **my_str_to_word_array(char const *str,
     char const *delim, char const *spe[]);
 bool is_nbr(char const *str);
-int my_dprintf(int stream, const char *format, ...);
-char *my_strdup(char const *str);
-size_t my_strlen(char const *str);
-char *my_strndup(char const *src, size_t size);
-int my_strcmp(char const *s1, char const *s2);
-char *my_strcpy(char *dest, char const *src);
-char *my_strcat(char *dest, char const *src);
-char *my_strchr(char *str, char c);
-char ***array_to_array(char **array, char *delim);
 int my_getnbr(char const *str);
-int my_strncmp(char const *s1, char const *s2, size_t n);
 /* LIB */
 
 /* SHELL_S */
@@ -67,6 +57,7 @@ void my_env(char **array, shell_t *sh);
 void my_setenv(char **array, shell_t *sh);
 void my_unsetenv(char **array, shell_t *sh);
 void my_cd(char **array, shell_t *sh);
+void my_status(char **array, shell_t *sh);
 /* BUILTIN */
 
 

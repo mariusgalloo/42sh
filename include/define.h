@@ -21,6 +21,10 @@
     #define MAX_ARGS 1
 /* MAIN_MAX_ARGS */
 
+/* STRCMP MATCH*/
+    #define MATCH 0
+/* STRCMP MATCH*/
+
 /* MY_STR_TO_WORD_ARRAY */
     #define DELIM " \t\n\r"
     #define START tab[0]

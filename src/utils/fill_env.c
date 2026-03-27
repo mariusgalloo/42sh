@@ -5,6 +5,8 @@
 ** fill_end
 */
 
+#include <string.h>
+#include <stdlib.h>
 #include "mysh.h"
 
 static int envtok(char const *str, char **var, char **val, char const delim)
@@ -15,10 +17,10 @@ static int envtok(char const *str, char **var, char **val, char const delim)
         if (str[i] == delim)
             break;
     }
-    *var = my_strndup(str, i);
+    *var = strndup(str, i);
     if (!*var)
         return FAIL;
-    *val = my_strdup(str + (i + 1));
+    *val = strdup(str + (i + 1));
     if (!*val) {
         free(*var);
         return FAIL;
@@ -44,7 +46,8 @@ int fill_env(char **env, shell_t *sh)
         free(var);
         free(val);
     }
-    if (push_env(NLSPATH, NLS_PATH, sh) == FAIL)
+    if (push_env("?", "", sh) == FAIL ||
+        push_env(NLSPATH, NLS_PATH, sh) == FAIL)
         return FAIL;
     return SUCCESS;
 }

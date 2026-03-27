@@ -5,6 +5,7 @@
 ** print_list
 */
 
+#include <stdio.h>
 #include "mysh.h"
 
 void print_list(list_t *env)
@@ -12,7 +13,7 @@ void print_list(list_t *env)
     list_t *curr = env;
 
     while (curr) {
-        my_dprintf(1, "%s=%s\n", curr->var, curr->val);
+        (void)fprintf(stdout, "%s=%s\n", curr->var, curr->val);
         curr = curr->next;
     }
     return;

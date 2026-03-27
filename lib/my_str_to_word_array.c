@@ -5,6 +5,7 @@
 ** my_str_to_word_array
 */
 
+#include <string.h>
 #include "mysh.h"
 
 static bool is_delim(char const c, char const *delim)
@@ -23,8 +24,8 @@ static int is_spe(char const *str, char const *spe[], size_t idx)
     if (!spe)
         return FAIL;
     for (size_t i = 0; spe[i] != NULL; ++i) {
-        len_spe = my_strlen(spe[i]);
-        if (my_strncmp(str + idx, spe[i], len_spe) == SUCCESS)
+        len_spe = strlen(spe[i]);
+        if (strncmp(str + idx, spe[i], len_spe) == SUCCESS)
             return (int)len_spe;
     }
     return FAIL;
@@ -66,7 +67,7 @@ static void how_many_word(char const *str, char const *delim,
 
 static int fill_array(char **line, char const *str, size_t *tab)
 {
-    *line = my_strndup(str + START, LEN);
+    *line = strndup(str + START, LEN);
     if (!(*line))
         return FAIL;
     START = 0;
@@ -77,7 +78,7 @@ static int fill_array(char **line, char const *str, size_t *tab)
 
 static int fill_spe(char **line, char const *str, int len, size_t *tab)
 {
-    *line = my_strndup(str + I, len);
+    *line = strndup(str + I, len);
     if (!(*line))
         return FAIL;
     I += (len - 1);

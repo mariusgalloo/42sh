@@ -7,6 +7,7 @@
 
 #include <unistd.h>
 #include <string.h>
+#include <stdio.h>
 #include <errno.h>
 #include "mysh.h"
 
@@ -22,12 +23,12 @@ static void push_pwd(char **pwd, shell_t *sh)
 
 static bool check_flags(char const *line, bool *flags, cd_t *cd)
 {
-    if (my_strcmp(line, "-l") == 0) {
+    if (strcmp(line, "-l") == 0) {
         flags[0] = true;
         cd->flag_l = true;
         return true;
     }
-    if (my_strcmp(line, "-p") == 0) {
+    if (strcmp(line, "-p") == 0) {
         flags[1] = true;
         cd->flag_p = true;
         return true;
@@ -43,10 +44,10 @@ static int parse_cmd(char **array, cd_t *cd)
         if (check_flags(array[i], flags, cd))
             continue;
         if (!cd->path) {
-            cd->path = my_strdup(array[i]);
+            cd->path = strdup(array[i]);
         } else {
             free(cd->path);
-            my_dprintf(2, "cd: Too many arguments.\n");
+            (void)fprintf(stderr, "cd: Too many arguments.\n");
             return FAIL;
         }
     }
@@ -56,10 +57,10 @@ static int parse_cmd(char **array, cd_t *cd)
 static void home_error(char *home, char *pwd, cd_t *cd)
 {
     if (!cd->path)
-        my_dprintf(2, "cd: Can't change to home directory.\n");
+        (void)fprintf(stderr, "cd: Can't change to home directory.\n");
     else {
-        my_dprintf(2, "%s/%s", pwd, home);
-        my_dprintf(2, ": No such file or directory.\n");
+        (void)fprintf(stderr, "%s/%s", pwd, home);
+        (void)fprintf(stderr, ": No such file or directory.\n");
     }
     free(home);
     free(pwd);
@@ -73,9 +74,9 @@ static void go_home(cd_t *cd, shell_t *sh)
 
     if (!home) {
         if (!cd->path)
-            my_dprintf(2, "cd: No home directory.\n");
+            (void)fprintf(stderr, "cd: No home directory.\n");
         else
-            my_dprintf(2, "No $home variable set.\n");
+            (void)fprintf(stderr, "No $home variable set.\n");
         return;
     }
     pwd = getcwd(NULL, 0);
@@ -90,7 +91,7 @@ static void go_home(cd_t *cd, shell_t *sh)
 
 static bool is_home(cd_t *cd, shell_t *sh)
 {
-    if (!cd->path || my_strcmp(cd->path, "~") == 0) {
+    if (!cd->path || strcmp(cd->path, "~") == 0) {
         go_home(cd, sh);
         return true;
     }
@@ -99,11 +100,11 @@ static bool is_home(cd_t *cd, shell_t *sh)
 
 static int check_path(cd_t *cd, shell_t *sh)
 {
-    if (my_strcmp(cd->path, "-") == 0) {
+    if (strcmp(cd->path, "-") == 0) {
         free(cd->path);
         cd->path = my_getenv("OLDPWD", sh);
         if (!cd->path) {
-            my_dprintf(2, ": No such file or directory.\n");
+            (void)fprintf(stderr, ": No such file or directory.\n");
             return FAIL;
         }
     }
@@ -118,7 +119,7 @@ static void go_path(cd_t *cd, shell_t *sh)
         return;
     pwd = getcwd(NULL, 0);
     if (chdir(cd->path) == FAIL) {
-        my_dprintf(2, "%s: %s.\n", cd->path, strerror(errno));
+        (void)fprintf(stderr, "%s: %s.\n", cd->path, strerror(errno));
         free(pwd);
         return;
     }

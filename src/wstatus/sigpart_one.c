@@ -5,34 +5,35 @@
 ** sigpart_one
 */
 
+#include <stdio.h>
 #include "mysh.h"
 
 void sigabrt(void)
 {
-    my_dprintf(2, "Abort\n");
+    (void)fprintf(stderr, "Abort\n");
     return;
 }
 
 void sigalrm(void)
 {
-    my_dprintf(2, "Alarm clock\n");
+    (void)fprintf(stderr, "Alarm clock\n");
     return;
 }
 
 void sigbus(void)
 {
-    my_dprintf(2, "Bus error\n");
+    (void)fprintf(stderr, "Bus error\n");
     return;
 }
 
 void sigfpe(void)
 {
-    my_dprintf(2, "Floating exception\n");
+    (void)fprintf(stderr, "Floating exception\n");
     return;
 }
 
 void sighup(void)
 {
-    my_dprintf(2, "Hangup\n");
+    (void)fprintf(stderr, "Hangup\n");
     return;
 }
