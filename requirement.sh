@@ -1,0 +1,1 @@
+sudo apt install libcjson1 libcjson-dev
