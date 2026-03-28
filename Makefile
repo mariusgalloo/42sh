@@ -35,6 +35,9 @@ SRC			=	$(UTILS)init_sh.c					\
 				$(UTILS)list_to_array.c				\
 				$(UTILS)init_cd.c					\
 				$(UTILS)free_tab.c					\
+				$(UTILS)get_data_json.c				\
+				$(UTILS)get_my_curl.c				\
+				$(UTILS)get_my_url.c				\
 				$(SHELL_S)get_input.c				\
 				$(SHELL_S)shell_loop.c				\
 				$(SHELL_S)shell_iteration.c			\
@@ -46,6 +49,7 @@ SRC			=	$(UTILS)init_sh.c					\
 				$(BUILTINS)my_unsetenv.c			\
 				$(BUILTINS)my_cd.c					\
 				$(BUILTINS)my_status.c				\
+				$(BUILTINS)my_music.c				\
 				$(WSTATUS)check_wstatus.c			\
 				$(WSTATUS)sigpart_one.c				\
 				$(WSTATUS)sigpart_two.c				\
@@ -65,7 +69,7 @@ $(LIB_NAME):	$(LIB_OBJ)
 	ar rc $(LIB_NAME) $(LIB_OBJ)
 
 $(NAME):	$(LIB_NAME) $(OBJ)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIB) -lmy
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIB) -lmy -lcurl -lcjson
 
 clean:
 	$(RM) $(OBJ) $(LIB_OBJ)

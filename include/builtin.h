@@ -23,7 +23,8 @@ static const builtins_t built[] = {
     {"setenv", &my_setenv},
     {"unsetenv", &my_unsetenv},
     {"cd", &my_cd},
-    {"$?", &my_status}
+    {"$?", &my_status},
+    {"music", &my_music}
 };
 
 #endif

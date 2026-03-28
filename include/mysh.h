@@ -12,6 +12,7 @@
     #include <stdlib.h>
     #include <stdarg.h>
     #include <signal.h>
+    #include <cjson/cJSON.h>
 
     #include "enum.h"
     #include "define.h"
@@ -34,6 +35,11 @@ char *concat_paths(char const *s1, char const *s2, char const *c);
 char **list_to_array(shell_t *sh);
 void init_cd(cd_t *cd);
 void free_tab(char ***tab);
+int get_my_curl(char *url,
+    int (*api_func)(CURL *curl, char const *url));
+char *get_my_url(char **array);
+int get_data_json(cJSON ***field, char const *name, cJSON *json);
+int init_curl(CURL **curl);
 /* UTILS */
 
 /* LIB */
@@ -58,6 +64,7 @@ void my_setenv(char **array, shell_t *sh);
 void my_unsetenv(char **array, shell_t *sh);
 void my_cd(char **array, shell_t *sh);
 void my_status(char **array, shell_t *sh);
+void my_music(char **array, shell_t *sh);
 /* BUILTIN */
 
 

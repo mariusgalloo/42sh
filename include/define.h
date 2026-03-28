@@ -5,6 +5,8 @@
 ** define
 */
 
+#include <curl/curl.h>
+
 #ifndef DEFINE_H_
     #define DEFINE_H_
 
@@ -43,5 +45,9 @@
     #define NLS_PATH NLS1 NLS2
     #define NLSPATH "NLSPATH"
 /* ENV_NLS_PATH */
+
+/* API */
+    #define API_DEEZ "https://api.deezer.com/search?q="
+/* API */
 
 #endif

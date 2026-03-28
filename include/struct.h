@@ -45,4 +45,9 @@ typedef struct pipe_s {
     int wstatus;
 } pipe_t;
 
+typedef struct memory_s {
+    char *response;
+    size_t size;
+} memory_t;
+
 #endif
