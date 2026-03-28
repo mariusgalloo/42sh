@@ -40,6 +40,10 @@ int get_my_curl(char *url,
 char *get_my_url(char **array);
 int get_data_json(cJSON ***field, char const *name, cJSON *json);
 int init_curl(CURL **curl);
+double add(double a, double b);
+double sub(double a, double b);
+double mul(double a, double b);
+double divide(double a, double b);
 /* UTILS */
 
 /* LIB */
@@ -64,9 +68,9 @@ void my_setenv(char **array, shell_t *sh);
 void my_unsetenv(char **array, shell_t *sh);
 void my_cd(char **array, shell_t *sh);
 void my_status(char **array, shell_t *sh);
+void my_compute(char **array, shell_t *sh);
 void my_music(char **array, shell_t *sh);
 /* BUILTIN */
-
 
 /* SIGNALS */
 void check_wstatus(int wstatus, shell_t *sh);

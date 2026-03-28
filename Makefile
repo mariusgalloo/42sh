@@ -50,6 +50,7 @@ SRC			=	$(UTILS)init_sh.c					\
 				$(BUILTINS)my_cd.c					\
 				$(BUILTINS)my_status.c				\
 				$(BUILTINS)my_music.c				\
+				$(BUILTINS)my_compute.c				\
 				$(WSTATUS)check_wstatus.c			\
 				$(WSTATUS)sigpart_one.c				\
 				$(WSTATUS)sigpart_two.c				\
