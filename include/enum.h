@@ -15,4 +15,17 @@ typedef enum {
     FOUND = 2
 } status_t;
 
+typedef enum {
+    SEMI,
+    PIPE,
+    CMD
+} type_t;
+
+typedef enum {
+    REDIR_IN,
+    DOUBLE_REDIR_IN,
+    REDIR_OUT,
+    DOUBLE_REDIR_OUT
+} redir_type;
+
 #endif

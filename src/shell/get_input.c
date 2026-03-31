@@ -15,6 +15,5 @@ int get_input(char **cmd, char ***array)
 
     if (getline(cmd, &size, stdin) == FAIL)
         return FAIL;
-    *array = my_str_to_word_array(*cmd, DELIM, spe);
     return SUCCESS;
 }

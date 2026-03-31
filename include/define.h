@@ -10,6 +10,10 @@
 #ifndef DEFINE_H_
     #define DEFINE_H_
 
+/* PARSER LL OPERATOR */
+    #define OPERATORS ";|"
+/* PARSER LL OPERATOR */
+
 /* STATUS_ERROR */
     #define EXIT_FAIL 84
     #define EXIT_SUCCESS 0

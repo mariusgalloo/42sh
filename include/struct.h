@@ -37,17 +37,22 @@ typedef struct cmd_s {
     int wstatus;
 } cmd_t;
 
-typedef struct pipe_s {
-    size_t len;
-    pid_t *pids;
-    int (*pipes)[2];
-    char ***tab;
-    int wstatus;
-} pipe_t;
-
 typedef struct memory_s {
     char *response;
     size_t size;
 } memory_t;
+
+typedef struct redir_s {
+    char *target;
+    struct redir_s *next;
+    redir_type type;
+} redir_t;
+
+typedef struct node_s {
+    struct node_s *left;
+    struct node_s *right;
+    char **cmd;
+    type_t type;
+} node_t;
 
 #endif
