@@ -10,6 +10,7 @@ UTILS		=	src/utils/
 SHELL_S		=	src/shell/
 BUILTINS	=	src/builtins/
 WSTATUS		=	src/wstatus/
+PARSING		=	src/parsing/
 
 CC			:=	epiclang
 CFLAGS		:=	-Wall -Wextra
@@ -51,6 +52,7 @@ SRC			=	$(UTILS)init_sh.c					\
 				$(BUILTINS)my_status.c				\
 				$(BUILTINS)my_music.c				\
 				$(BUILTINS)my_compute.c				\
+				$(PARSING)llparser.c				\
 				$(WSTATUS)check_wstatus.c			\
 				$(WSTATUS)sigpart_one.c				\
 				$(WSTATUS)sigpart_two.c				\

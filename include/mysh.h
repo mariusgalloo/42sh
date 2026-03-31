@@ -61,6 +61,10 @@ int cmd_check(char **array, shell_t *sh);
 void exec_cmd(char **array, shell_t *sh);
 /* SHELL_S */
 
+/* PARSING */
+int llparser(char **array, UNUSED shell_t *sh);
+/* PARSING */
+
 /* BUILTIN */
 void my_exit(char **array, shell_t *sh);
 void my_env(char **array, shell_t *sh);
