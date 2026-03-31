@@ -57,7 +57,7 @@ int my_getnbr(char const *str);
 int shell_loop(shell_t *sh);
 int get_input(char **cmd, char ***array);
 int shell_iteration(shell_t *sh);
-int cmd_check(char *cmd, shell_t *sh);
+int cmd_check(char **array, shell_t *sh);
 void exec_cmd(char **array, shell_t *sh);
 /* SHELL_S */
 

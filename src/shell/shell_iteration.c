@@ -17,9 +17,13 @@ int shell_iteration(shell_t *sh)
         free(cmd);
         return SUCCESS;
     }
-    if (!cmd)
+    free(cmd);
+    if (!array)
         return SUCCESS;
-    if (cmd_check(cmd, sh) == FAIL)
+    if (cmd_check(array, sh) == FAIL) {
+        free_array(array);
         return FAIL;
+    }
+    free_array(array);
     return SUCCESS;
 }

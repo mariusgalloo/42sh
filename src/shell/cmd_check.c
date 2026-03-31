@@ -11,7 +11,18 @@
 #include "builtin.h"
 #include "mysh.h"
 
-node_t *create_node(node_t *left, node_t *right, char **cmd, type_t type)
+type_t check_type(char const *input, char const *ope[])
+{
+    type_t type = CMD;
+
+    for (size_t idx = 0; ope[idx] != NULL; ++idx) {
+        if (strcmp(input, ope[idx]) == MATCH)
+            return (type_t)idx;
+    }
+    return type;
+}
+
+node_t *create_node(node_t *left, node_t *right, char **array, type_t type)
 {
     node_t *new_node = calloc(1, sizeof(node_t));
 
@@ -19,51 +30,109 @@ node_t *create_node(node_t *left, node_t *right, char **cmd, type_t type)
         return NULL;
     new_node->left = left;
     new_node->right = right;
-    new_node->cmd = cmd;
+    new_node->cmd = array;
     new_node->type = type;
     return new_node;
 }
 
-node_t *parse_cmd(char const *cmd, size_t *idx)
+char **arraytok(char **array, size_t start, size_t end)
 {
-    type_t type = CMD;
+    char **sub = NULL;
+    size_t size = end - start;
 
-    for (; cmd[*idx] != '\0'; ++idx) {
-        type = check_type();
-        if (type != CMD)
-            break;
+    if (size == 0)
+        return NULL;
+    sub = calloc(size + 1, sizeof(char *));
+    if (!sub)
+        return NULL;
+    for (size_t idx = 0; start < end; ++idx) {
+        sub[idx] = strdup(array[start]);
+        if (!sub[idx])
+            return NULL;
+        ++start;
     }
-    return create_node(NULL, NULL, my_str_to_word_array(cmd + *idx, DELIM, spe), type);
+    sub[size] = NULL;
+    return sub;
 }
 
-node_t *parse_semi(node_t *node)
+node_t *parse_cmd(char **array, char const *ope[], size_t *idx)
 {
-    node_t *left = parse_pipe();
+    size_t start = *idx;
+    char **sub = NULL;
+
+    while (array[*idx] && check_type(array[*idx], ope) == CMD)
+        ++(*idx);
+    sub = arraytok(array, start, *idx);
+    if (!sub)
+        return NULL;
+    return create_node(NULL, NULL, sub, CMD);
+}
+
+node_t *parse_pipe(char **array, char const *ope[], size_t *idx)
+{
+    node_t *left = parse_cmd(array, ope, idx);
     node_t *right = NULL;
 
-    ;
+    if (!left)
+        return NULL;
+    if (array[*idx] && check_type(array[*idx], ope) == PIPE) {
+        ++(*idx);
+        right = parse_pipe(array, ope, idx);
+        if (!right)
+            return NULL;
+        return create_node(left, right, NULL, PIPE);
+    }
+    return left;
 }
 
-static bool parse_separator()
+node_t *parse_semi(char **array, char const *ope[], size_t *idx)
 {
-    for (size_t i = 0; OPERATORS[i] != '\0'; ++i) {
-        if (OPERATORS[i] == *cmd)
-            return true;
-    }; OPERATORS[i] != '\0'; ++i) {
-        if (OPERATORS[i] == *cmd)
-            return true;
+    node_t *left = parse_pipe(array, ope, idx);
+    node_t *right = NULL;
+
+    if (!left)
+        return NULL;
+    if (array[*idx] && check_type(array[*idx], ope) == SEMI) {
+        ++(*idx);
+        right = parse_semi(array, ope, idx);
+        if (!right)
+            return NULL;
+        return create_node(left, right, NULL, SEMI);
     }
-    return false;
+    return left;
 }
 
-int cmd_check(char *cmd, shell_t *sh)
+static void print_node(node_t *node)
 {
-    node_t node;
-
-    while (*cmd != '\0') {
-        if (parse_separator() == FAIL)
-            return FAIL;
+    if (!node)
+        return;
+    if (node->type == SEMI)
+        printf("semi:\n");
+    if (node->type == PIPE)
+        printf("PIPE:\n");
+    if (node->type == CMD) {
+        printf("CMD:\n");
+        for (size_t i = 0; node->cmd[i] != NULL; i++)
+            printf("%s ", node->cmd[i]);
+        printf("\n");
     }
-    parse_semi(&node);
+    if (node->left) {
+        printf("Left:\n");
+        print_node(node->left);
+    }
+    if (node->right) {
+        printf("Right:\n");
+        print_node(node->right);
+    }
+    return;
+}
+
+int cmd_check(char **array, shell_t *sh)
+{
+    char const *ope[] = {";", "|", NULL};
+    size_t idx = 0;
+    node_t *node = parse_semi(array, ope, &idx);
+
+    print_node(node);
     return SUCCESS;
 }

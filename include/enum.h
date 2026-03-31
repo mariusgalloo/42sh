@@ -26,6 +26,6 @@ typedef enum {
     DOUBLE_REDIR_IN,
     REDIR_OUT,
     DOUBLE_REDIR_OUT
-} redir_type;
+} redir_type_t;
 
 #endif

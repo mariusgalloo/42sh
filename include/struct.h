@@ -45,7 +45,7 @@ typedef struct memory_s {
 typedef struct redir_s {
     char *target;
     struct redir_s *next;
-    redir_type type;
+    redir_type_t type;
 } redir_t;
 
 typedef struct node_s {
@@ -53,6 +53,7 @@ typedef struct node_s {
     struct node_s *right;
     char **cmd;
     type_t type;
+    redir_t *redirs;
 } node_t;
 
 #endif
