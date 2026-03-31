@@ -96,7 +96,7 @@ node_t *parse_semi(char **array, char const *ope[], size_t *idx)
         ++(*idx);
         right = parse_semi(array, ope, idx);
         if (!right)
-            return NULL;
+            return create_node(left, NULL, NULL, SEMI);
         return create_node(left, right, NULL, SEMI);
     }
     return left;
