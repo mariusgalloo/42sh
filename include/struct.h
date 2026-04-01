@@ -44,7 +44,7 @@ typedef struct memory_s {
 
 typedef struct redir_s {
     char *target;
-    struct redir_s *next;
+    FILE *stream;
     redir_type_t type;
 } redir_t;
 
