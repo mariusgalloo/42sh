@@ -10,7 +10,7 @@
 static void print_type(node_t *node)
 {
     if (node->type == SEMI)
-        printf("semi:\n");
+        printf("SEMI:\n");
     if (node->type == PIPE)
         printf("PIPE:\n");
     if (node->type == CMD) {
@@ -18,6 +18,9 @@ static void print_type(node_t *node)
         for (size_t i = 0; node->cmd[i] != NULL; i++)
             printf("%s ", node->cmd[i]);
         printf("\n");
+        if (node->redirs) {
+            printf("Contain redirection\n");
+        }
     }
 }
 

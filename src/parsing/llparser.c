@@ -108,6 +108,7 @@ int llparser(char **array, UNUSED shell_t *sh)
     size_t idx = 0;
     node_t *node = parse_semi(array, ope, &idx);
 
+    check_redirection(node);
     print_node(node);
     return SUCCESS;
 }

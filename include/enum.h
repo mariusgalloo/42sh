@@ -22,10 +22,11 @@ typedef enum {
 } type_t;
 
 typedef enum {
-    REDIR_IN,
     DOUBLE_REDIR_IN,
+    REDIR_IN,
+    DOUBLE_REDIR_OUT,
     REDIR_OUT,
-    DOUBLE_REDIR_OUT
+    NONE
 } redir_type_t;
 
 #endif

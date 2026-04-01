@@ -53,6 +53,7 @@ SRC			=	$(UTILS)init_sh.c					\
 				$(BUILTINS)my_music.c				\
 				$(BUILTINS)my_compute.c				\
 				$(PARSING)llparser.c				\
+				$(PARSING)check_redirection.c		\
 				$(PARSING)print_node.c				\
 				$(WSTATUS)check_wstatus.c			\
 				$(WSTATUS)sigpart_one.c				\

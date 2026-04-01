@@ -63,6 +63,7 @@ void exec_cmd(char **array, shell_t *sh);
 
 /* PARSING */
 int llparser(char **array, UNUSED shell_t *sh);
+void check_redirection(node_t *node);
 void print_node(node_t *node);
 /* PARSING */
 
