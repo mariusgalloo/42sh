@@ -53,6 +53,7 @@ SRC			=	$(UTILS)init_sh.c					\
 				$(BUILTINS)my_music.c				\
 				$(BUILTINS)my_compute.c				\
 				$(PARSING)llparser.c				\
+				$(PARSING)print_node.c				\
 				$(WSTATUS)check_wstatus.c			\
 				$(WSTATUS)sigpart_one.c				\
 				$(WSTATUS)sigpart_two.c				\
@@ -75,7 +76,7 @@ $(NAME):	$(LIB_NAME) $(OBJ)
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) -L$(LIB) -lmy -lcurl -lcjson
 
 clean:
-	$(RM) $(OBJ) $(LIB_OBJ)
+	$(RM) $(OBJ) $(LIB_OBJ) $(LIB_NAME)
 
 fclean: clean
 	$(RM) $(NAME) $(LIB_NAME)
