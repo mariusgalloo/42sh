@@ -13,6 +13,8 @@ int push_env(const char *var, const char *val, shell_t *sh)
 {
     list_t *curr = sh->env;
 
+    if (!var || !val)
+        return FAIL;
     while (curr && strcmp(var, curr->var) != 0)
         curr = curr->next;
     if (!curr)

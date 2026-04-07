@@ -8,6 +8,7 @@
 LIB			=	lib/
 UTILS		=	src/utils/
 SHELL_S		=	src/shell/
+INIT_SHELL  = 	src/shell/init_shell/
 BUILTINS	=	src/builtins/
 WSTATUS		=	src/wstatus/
 PARSING		=	src/parsing/
@@ -25,6 +26,7 @@ LIB_NAME	=	$(LIB)libmy.a
 
 SRC			=	$(UTILS)init_sh.c					\
 				$(UTILS)fill_env.c					\
+				$(UTILS)print_prompt.c				\
 				$(UTILS)push_back.c					\
 				$(UTILS)print_list.c				\
 				$(UTILS)my_getenv.c					\
@@ -44,6 +46,9 @@ SRC			=	$(UTILS)init_sh.c					\
 				$(SHELL_S)shell_iteration.c			\
 				$(SHELL_S)cmd_check.c				\
 				$(SHELL_S)exec_cmd.c				\
+				$(INIT_SHELL)get_hostname.c 		\
+				$(INIT_SHELL)getuser.c 				\
+				$(INIT_SHELL)init_shell.c 			\
 				$(BUILTINS)my_exit.c				\
 				$(BUILTINS)my_env.c					\
 				$(BUILTINS)my_setenv.c				\

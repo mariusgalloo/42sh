@@ -1,6 +1,10 @@
 # Prerequisites
 *.d
 .vscode/
+compile_commands.json
+mysh
+README.md
+requirement.sh
 
 # Object files
 *.o

@@ -5,10 +5,7 @@
 ** shell_loop
 */
 
-#include <unistd.h>
 #include "mysh.h"
-#include <stdio.h>
-#include <string.h>
 
 static int fill_value(list_t *curr, int exit_status)
 {
@@ -40,7 +37,7 @@ static int fill_status(shell_t *sh)
 
 int shell_loop(shell_t *sh)
 {
-    if (isatty(0) && write(1, "$> ", 3) == FAIL)
+    if (isatty(0) && print_prompt(sh) == FAIL)
         return FAIL;
     while (true) {
         if (sh->exit)
@@ -49,7 +46,7 @@ int shell_loop(shell_t *sh)
             return FAIL;
         if (fill_status(sh) == FAIL)
             return FAIL;
-        if (isatty(0) && !sh->exit && write(1, "$> ", 3) == FAIL)
+        if (isatty(0) && !sh->exit && print_prompt(sh) == FAIL)
             return FAIL;
     }
     return SUCCESS;

@@ -48,6 +48,15 @@
     #define NLS2 "/usr/share/locale/%l/LC_MESSAGES/%N.cat"
     #define NLS_PATH NLS1 NLS2
     #define NLSPATH "NLSPATH"
+    #define PATH1 "/usr/local/sbin:/usr/local/bin:"
+    #define PATH2 "/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
+    #define CMD_PATH PATH1 PATH2
+    #define PATH "PATH"
+    #define HOST "HOST"
+    #define USER "USER"
+    #define PWD "PWD"
+    #define HOME "HOME"
+    #define PATH_HOME "/home/"
 /* ENV_NLS_PATH */
 
 /* API */

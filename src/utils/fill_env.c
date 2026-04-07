@@ -46,8 +46,9 @@ int fill_env(char **env, shell_t *sh)
         free(var);
         free(val);
     }
-    if (push_env("?", "", sh) == FAIL ||
-        push_env(NLSPATH, NLS_PATH, sh) == FAIL)
+    if (init_env(sh) == FAIL)
+        return FAIL;
+    if (push_env("?", "", sh) == FAIL)
         return FAIL;
     return SUCCESS;
 }

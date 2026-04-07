@@ -13,6 +13,9 @@
     #include <stdarg.h>
     #include <signal.h>
     #include <cjson/cJSON.h>
+    #include <string.h>
+    #include <stdio.h>
+    #include <unistd.h>
 
     #include "enum.h"
     #include "define.h"
@@ -53,12 +56,19 @@ bool is_nbr(char const *str);
 int my_getnbr(char const *str);
 /* LIB */
 
+/* INIT_SHELL_S */
+char *get_hostname(void);
+char *get_user(void);
+int init_env(shell_t *sh);
+/* INIT_SHELL_S */
+
 /* SHELL_S */
 int shell_loop(shell_t *sh);
 int get_input(char **cmd, char ***array);
 int shell_iteration(shell_t *sh);
 int cmd_check(char **array, shell_t *sh);
 void exec_cmd(char **array, shell_t *sh);
+int print_prompt(shell_t *sh);
 /* SHELL_S */
 
 /* PARSING */
